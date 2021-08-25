@@ -5,6 +5,7 @@ import RootNavigation from './RootNavigation';
 
 export default function Navigation() {
   const barStyle = 'light-content';
+
   return (
     <NavigationContainer>
       <StatusBar barStyle={barStyle} backgroundColor={'black'} />

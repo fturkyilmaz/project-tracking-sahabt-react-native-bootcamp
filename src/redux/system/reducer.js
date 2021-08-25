@@ -13,6 +13,7 @@ const initialState = {
   token: '',
   language: 'TR',
   isDarkMode: false,
+  isLogin: false,
 };
 
 export function systemReducer(state = initialState, action) {
@@ -23,6 +24,9 @@ export function systemReducer(state = initialState, action) {
     case HIDE_LOADER:
       return {...state, loading: false};
 
+    case SET_USER:
+      return {...state, isLogin: true, userInfo: action.payload};
+
     case USER_LOGOUT:
       return {
         ...state,
@@ -30,6 +34,7 @@ export function systemReducer(state = initialState, action) {
         token: '',
         language: 'TR',
         loading: false,
+        isLogin: false,
       };
 
     case SET_THEME:

@@ -15,15 +15,24 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import Checkbox from '../components/Checkbox';
 import DeviceInfo from 'react-native-device-info';
+import {useDispatch, useSelector} from 'react-redux';
+import {hideLoader, setUser, toggleLoader} from '../redux/system/actions';
+import I18n from '../i18n';
 
 export default function LoginScreen() {
+  const usernameText = I18n.t('username');
+  const passwordText = I18n.t('password');
+  const rememberMeText = I18n.t('rememberMe');
+  const loginText = I18n.t('login');
+
+  const dispatch = useDispatch();
+
   const [pageData, setPageData] = useState({
     username: 'SHTFURKAN',
     password: 'SHT_MANAGER',
   });
 
   const onChangeText = (key, value) => {
-    console.log('onChangeText ', pageData, key, value);
     setPageData(page => ({...page, [key]: value}));
   };
 
@@ -34,6 +43,22 @@ export default function LoginScreen() {
   };
 
   const versionNumber = DeviceInfo.getVersion();
+
+  const onLogin = () => {
+    dispatch(toggleLoader());
+
+    dispatch(
+      setUser({
+        name: 'Osman',
+        surname: 'Yılmaz',
+        linkedinProfile: 'furkanturkyilmaz',
+        token: 'sdfjsdfkljdsklfsdlkmfklsdflk',
+        companyName: 'SAHA BT',
+      }),
+    );
+
+    dispatch(hideLoader());
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -49,7 +74,7 @@ export default function LoginScreen() {
         <View style={{marginVertical: 15}}>
           <Input
             onChangeText={text => onChangeText('username', text)}
-            placeHolder="Kullanıcı Adı"
+            placeHolder={usernameText}
             value={pageData.username}
             icon={'mail-outline'}
             color={colors.cFFFFFF}
@@ -59,7 +84,7 @@ export default function LoginScreen() {
         <View style={{marginVertical: 15}}>
           <Input
             onChangeText={text => onChangeText('password', text)}
-            placeHolder="Şifre"
+            placeHolder={passwordText}
             value={pageData.password}
             isHidden
             icon={'lock-outline'}
@@ -74,13 +99,10 @@ export default function LoginScreen() {
             checked={rememberMe}
             checkedColor={colors.white[50]}
           />
-          <Text style={styles.rememberMeText}>Beni Hatırla</Text>
+          <Text style={styles.rememberMeText}>{rememberMeText}</Text>
         </View>
         <View style={{marginVertical: 15}}>
-          <Button
-            onPress={() => alert('Giriş Yap Tetiklendi!!')}
-            text="Giriş Yap"
-          />
+          <Button onPress={() => onLogin()} text={loginText} />
         </View>
       </View>
       <View style={styles.versionNumberContainer}>

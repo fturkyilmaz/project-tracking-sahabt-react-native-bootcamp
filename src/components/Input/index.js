@@ -15,16 +15,14 @@ export default function Input({
 }) {
   const [showPass, setShowPass] = useState(false);
 
-  const placeHolderTextColor = colors.white['70'];
-
   return (
     <View style={[styles.container, {...style}]}>
       <Icon name={icon} size={26} color={color} style={styles.icon} />
       <TextInput
         onChangeText={onChangeText}
         value={value}
+        placeholderTextColor={colors.white[50]}
         placeholder={placeHolder}
-        placeHolderTextColor={'red'}
         secureTextEntry={isHidden ? !showPass : false}
         style={[styles.text, {color}]}
         underlineColorAndroid="transparent"

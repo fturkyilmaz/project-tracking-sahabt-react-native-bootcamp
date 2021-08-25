@@ -1,4 +1,10 @@
-import {TOGGLE_LOADER, HIDE_LOADER, SET_THEME} from './actionTypes';
+import {
+  TOGGLE_LOADER,
+  HIDE_LOADER,
+  SET_THEME,
+  SET_USER,
+  USER_LOGOUT,
+} from './actionTypes';
 
 // Loader Açar
 export function toggleLoader() {
@@ -15,4 +21,14 @@ export function hideLoader() {
 // Sistemin temasını set eder
 export function setTheme(payload) {
   return {type: SET_THEME, payload};
+}
+
+// Sisteme login olmusş kişiyi setler
+export function setUser(payload) {
+  return {type: SET_USER, payload};
+}
+
+//Sistemde cıkış yapmamımız sağlar
+export function userLogout() {
+  return {type: USER_LOGOUT};
 }
