@@ -5,6 +5,7 @@ import {userLogout} from '../redux/system/actions';
 import {WebView} from 'react-native-webview';
 import {layout} from '../constants';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import CustomView from '../components/CustomView';
 
 export default function HomeScreen({navigation}) {
   const dispatch = useDispatch();
@@ -22,28 +23,18 @@ export default function HomeScreen({navigation}) {
   };
 
   return (
-    <View
+    <CustomView
       style={{
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#FFFFFF',
-        marginTop: safeArea.top,
-        marginBottom: safeArea.bottom,
       }}>
-      {/* <Text>
+      <Text>
         Home Screen Hoş Geldin {userInfo.name} {userInfo.surname}
-      </Text> */}
+      </Text>
 
-      <WebView
-        source={{
-          uri: 'https://sahabt.com/en/',
-        }}
-        style={{width, height}}
-      />
-      {/* 
       <Button title="Çıkış Yap" onPress={() => logOut()} />
-      <Button title="Logine Git" onPress={() => navigation.navigate('Login')} /> */}
-    </View>
+      <Button title="Logine Git" onPress={() => navigation.navigate('Login')} />
+    </CustomView>
   );
 }

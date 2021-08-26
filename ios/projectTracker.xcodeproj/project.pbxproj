@@ -145,7 +145,6 @@
 				647882B4891CD37C75ED7310 /* Pods-projectTracker-projectTrackerTests.debug.xcconfig */,
 				F7B5B600A8041AE6B5C48CE5 /* Pods-projectTracker-projectTrackerTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
