@@ -6,6 +6,7 @@ import {WebView} from 'react-native-webview';
 import {layout} from '../constants';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import CustomView from '../components/CustomView';
+import Header from '../components/Header';
 
 export default function HomeScreen({navigation}) {
   const dispatch = useDispatch();
@@ -14,27 +15,12 @@ export default function HomeScreen({navigation}) {
 
   const {width, height} = layout;
 
-  const userInfo = useSelector(state => state.system.userInfo);
-
-  console.log('userInfo', userInfo);
-
-  const logOut = () => {
-    dispatch(userLogout());
-  };
-
   return (
     <CustomView
       style={{
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
       }}>
-      <Text>
-        Home Screen Hoş Geldin {userInfo.name} {userInfo.surname}
-      </Text>
-
-      <Button title="Çıkış Yap" onPress={() => logOut()} />
-      <Button title="Logine Git" onPress={() => navigation.navigate('Login')} />
+      <Header title="Home" />
     </CustomView>
   );
 }

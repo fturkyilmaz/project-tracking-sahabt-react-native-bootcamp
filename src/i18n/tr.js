@@ -5,4 +5,5 @@ export default {
   login: 'Giriş Yap',
   profile: 'Profil',
   home: 'Ana Sayfa',
+  task: 'Görevlerim',
 };

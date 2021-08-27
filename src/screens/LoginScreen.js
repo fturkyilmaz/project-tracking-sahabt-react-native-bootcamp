@@ -50,11 +50,17 @@ export default function LoginScreen() {
 
     dispatch(
       setUser({
-        name: 'Osman',
-        surname: 'Yılmaz',
-        linkedinProfile: 'furkanturkyilmaz',
+        name: 'Furkan',
+        surname: 'Türkyılmaz',
+        displayName: 'Furkan Türkyılmaz',
         token: 'sdfjsdfkljdsklfsdlkmfklsdflk',
-        companyName: 'SAHA BT',
+        company: 'SAHA BT',
+        mobile: '05423454384238',
+        title: 'Mobile Developer',
+        managerDisplayName: 'Furkan Türkyılmaz',
+        unitName: 'Mobil Geliştirici',
+        profilePic:
+          'https://i2.cnnturk.com/i/cnnturk/75/450x225/60e54eed214ed8107c4b4ebb.jpg',
       }),
     );
 

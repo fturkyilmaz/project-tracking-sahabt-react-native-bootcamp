@@ -5,4 +5,5 @@ export default {
   login: 'Login',
   profile: 'Profile',
   home: 'Home',
+  task: 'Task',
 };
