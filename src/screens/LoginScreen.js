@@ -59,8 +59,7 @@ export default function LoginScreen() {
         title: 'Mobile Developer',
         managerDisplayName: 'Furkan Türkyılmaz',
         unitName: 'Mobil Geliştirici',
-        profilePic:
-          'https://i2.cnnturk.com/i/cnnturk/75/450x225/60e54eed214ed8107c4b4ebb.jpg',
+        profilePic: null,
       }),
     );
 
@@ -78,7 +77,7 @@ export default function LoginScreen() {
             resizeMode="contain"
           />
         </View>
-        <View style={{marginVertical: 15}}>
+        <View style={styles.inputContainer}>
           <Input
             onChangeText={text => onChangeText('username', text)}
             placeHolder={usernameText}
@@ -88,7 +87,7 @@ export default function LoginScreen() {
             style={styles.input}
           />
         </View>
-        <View style={{marginVertical: 15}}>
+        <View style={styles.inputContainer}>
           <Input
             onChangeText={text => onChangeText('password', text)}
             placeHolder={passwordText}
@@ -129,6 +128,9 @@ const styles = StyleSheet.create({
   },
   input: {
     marginVertical: 5,
+  },
+  inputContainer: {
+    margin: 15,
   },
   logo: {width: 300, height: 100},
   logoContainer: {marginBottom: 25, alignItems: 'center'},

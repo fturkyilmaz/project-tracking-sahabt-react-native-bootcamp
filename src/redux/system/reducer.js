@@ -11,7 +11,7 @@ const initialState = {
   loading: false,
   userInfo: {},
   token: '',
-  language: 'TR',
+  language: 'tr',
   isDarkMode: false,
   isLogin: false,
 };
@@ -32,7 +32,7 @@ export function systemReducer(state = initialState, action) {
         ...state,
         userInfo: {},
         token: '',
-        language: 'TR',
+        language: 'tr',
         loading: false,
         isLogin: false,
       };
@@ -41,6 +41,7 @@ export function systemReducer(state = initialState, action) {
       return {...state, isDarkMode: action.payload};
 
     case SET_LANGUAGE:
+      console.log('SET_LANGUAGE', action);
       return {...state, language: action.payload};
 
     default:

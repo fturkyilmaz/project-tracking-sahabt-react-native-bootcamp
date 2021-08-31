@@ -4,6 +4,7 @@ import {
   SET_THEME,
   SET_USER,
   USER_LOGOUT,
+  SET_LANGUAGE,
 } from './actionTypes';
 
 // Loader Açar
@@ -21,6 +22,11 @@ export function hideLoader() {
 // Sistemin temasını set eder
 export function setTheme(payload) {
   return {type: SET_THEME, payload};
+}
+
+// Sistemin dilini set eder
+export function setLanguage(payload) {
+  return {type: SET_LANGUAGE, payload};
 }
 
 // Sisteme login olmusş kişiyi setler

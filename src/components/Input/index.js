@@ -12,6 +12,7 @@ export default function Input({
   placeHolder = '',
   style,
   color,
+  ...props
 }) {
   const [showPass, setShowPass] = useState(false);
 
@@ -26,6 +27,7 @@ export default function Input({
         secureTextEntry={isHidden ? !showPass : false}
         style={[styles.text, {color}]}
         underlineColorAndroid="transparent"
+        {...props}
       />
 
       {isHidden && (
@@ -46,7 +48,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     paddingBottom: 10,
-    marginHorizontal: 17,
+    // marginHorizontal: 17,
     borderBottomWidth: 1,
     borderBottomColor: '#97a1be',
   },
@@ -56,5 +58,6 @@ const styles = StyleSheet.create({
     fontSize: fonts.f13,
     letterSpacing: 1,
     fontWeight: '600',
+    color: colors.cFFFFFF,
   },
 });
