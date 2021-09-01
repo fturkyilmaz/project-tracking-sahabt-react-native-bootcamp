@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
-import {View, Text, SafeAreaView, StyleSheet} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {layout, colors} from '../constants';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import React, {useEffect, useState} from 'react';
+import {View, StyleSheet} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {colors} from '../constants';
 import CustomView from '../components/CustomView';
 import Header from '../components/Header';
 import Input from '../components/Input';
 import Dropdown from '../components/Dropdown';
 import Button from '../components/Button';
+import axios from '../utils/axios';
+import {hideLoader, toggleLoader} from '../redux/system/actions';
+import apiConfig from '../config/apiConfig';
 
 export default function HomeScreen({navigation}) {
   const [pageData, setPageData] = useState({
@@ -16,16 +18,9 @@ export default function HomeScreen({navigation}) {
     time: '',
   });
 
+  const [project, setProject] = useState([]);
+
   const dispatch = useDispatch();
-
-  const safeArea = useSafeAreaInsets();
-
-  const {width, height} = layout;
-
-  const handleLanguageChange = value => {
-    if (value) {
-    }
-  };
 
   const onChangeText = (key, text) => {
     setPageData(page => ({...page, [key]: text}));
@@ -34,6 +29,30 @@ export default function HomeScreen({navigation}) {
   const onDonePress = () => {};
 
   const saveProjectTimeline = () => {};
+
+  const fetchProjectList = () => {
+    try {
+      dispatch(toggleLoader());
+
+      axios.get(apiConfig.prefixes.projectList).then(response => {
+        const newData = response?.data
+          ? response.data.map(x => ({
+              label: x.name,
+              value: x.id,
+            }))
+          : [];
+
+        setProject(newData);
+      });
+    } catch (error) {
+    } finally {
+      dispatch(hideLoader());
+    }
+  };
+
+  useEffect(() => {
+    fetchProjectList();
+  }, []);
 
   return (
     <CustomView
@@ -45,17 +64,14 @@ export default function HomeScreen({navigation}) {
       <View
         style={{
           flex: 1,
-          margin: 20,
+          marginVertical: 20,
+          padding: 15,
         }}>
         <View style={styles.inputContainer}>
           <Dropdown
-            items={[
-              {label: 'Coffy', value: 1},
-              {label: 'Plugger', value: 2},
-              {label: 'Saha Bt', value: 3},
-            ]}
+            items={project}
             placeholder="Proje Seçiniz"
-            onValueChange={val => handleLanguageChange(val)}
+            onValueChange={val => onChangeText('project', val)}
             onDonePress={() => onDonePress()}
           />
         </View>
@@ -72,7 +88,7 @@ export default function HomeScreen({navigation}) {
               {label: '8 Saat', value: 480},
             ]}
             placeholder="Süre Seçiniz"
-            onValueChange={val => handleLanguageChange(val)}
+            onValueChange={val => onChangeText('time', val)}
             onDonePress={() => onDonePress()}
           />
         </View>

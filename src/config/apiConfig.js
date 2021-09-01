@@ -1,11 +1,11 @@
 const prefixes = {
-  login: 'login',
+  login: 'auth/signin',
   projectList: 'project/list',
 };
 
 const apiConfig = {
   prefixes,
-  baseUrl: 'https://localhost:5000/api',
+  baseUrl: 'http://localhost:8080',
 };
 
 export default apiConfig;

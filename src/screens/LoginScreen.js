@@ -17,8 +17,10 @@ import Checkbox from '../components/Checkbox';
 import DeviceInfo from 'react-native-device-info';
 import CustomView from '../components/CustomView';
 import {useDispatch, useSelector} from 'react-redux';
-import {hideLoader, setUser, toggleLoader} from '../redux/system/actions';
 import I18n from '../i18n';
+import axios from '../utils/axios';
+import {hideLoader, setUser, toggleLoader} from '../redux/system/actions';
+import apiConfig from '../config/apiConfig';
 
 export default function LoginScreen() {
   const usernameText = I18n.t('username');
@@ -29,8 +31,8 @@ export default function LoginScreen() {
   const dispatch = useDispatch();
 
   const [pageData, setPageData] = useState({
-    username: 'SHTFURKAN',
-    password: 'SHT_MANAGER',
+    username: 'SHBTADMIN',
+    password: 'SAHABT_MANAGER',
   });
 
   const onChangeText = (key, value) => {
@@ -46,24 +48,16 @@ export default function LoginScreen() {
   const versionNumber = DeviceInfo.getVersion();
 
   const onLogin = () => {
-    dispatch(toggleLoader());
+    try {
+      dispatch(toggleLoader());
 
-    dispatch(
-      setUser({
-        name: 'Furkan',
-        surname: 'Türkyılmaz',
-        displayName: 'Furkan Türkyılmaz',
-        token: 'sdfjsdfkljdsklfsdlkmfklsdflk',
-        company: 'SAHA BT',
-        mobile: '05423454384238',
-        title: 'Mobile Developer',
-        managerDisplayName: 'Furkan Türkyılmaz',
-        unitName: 'Mobil Geliştirici',
-        profilePic: null,
-      }),
-    );
-
-    dispatch(hideLoader());
+      axios.post(apiConfig.prefixes.login, pageData).then(response => {
+        dispatch(setUser(response.data.data));
+      });
+    } catch (error) {
+    } finally {
+      dispatch(hideLoader());
+    }
   };
 
   return (

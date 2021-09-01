@@ -5,6 +5,8 @@ import ProfileScreen from '../screens/ProfileScreen';
 import TaskScreen from '../screens/TaskScreen';
 import TabBarIcon from '../components/TabBarIcon';
 import I18n from '../i18n';
+import {GetIsDarkMode} from '../redux/system/selectors';
+import {colors} from '../constants';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,8 +17,16 @@ export default function TabNavigator() {
 
   const taskTitle = I18n.t('task');
 
+  const isDarkMode = GetIsDarkMode();
+
   return (
-    <Tab.Navigator screenOptions={{headerShown: false}}>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: isDarkMode
+          ? colors.white[100]
+          : colors.light.icon,
+      }}>
       <Tab.Screen
         name="Root"
         component={HomeScreen}
