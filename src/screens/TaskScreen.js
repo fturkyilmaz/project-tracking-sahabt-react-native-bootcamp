@@ -14,6 +14,7 @@ import {fonts, colors} from '../constants';
 import CustomView from '../components/CustomView';
 import Header from '../components/Header';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import I18n from '../i18n';
 
 const storageKey = 'todo';
 
@@ -43,8 +44,6 @@ export default function TaskScreen() {
   const getToDoFromUserDevice = async () => {
     try {
       const response = await AsyncStorage.getItem(storageKey);
-
-      console.log('Response getToDoFromUserDevice', response);
 
       if (response) {
         const parseJSON = JSON.parse(response);
@@ -126,7 +125,7 @@ export default function TaskScreen() {
 
   return (
     <CustomView style={styles.container}>
-      <Header title="Task" />
+      <Header title={I18n.t('task')} />
       <FlatList
         showsVerticalScrollIndicator={false}
         data={todo}
@@ -136,7 +135,7 @@ export default function TaskScreen() {
       <View style={styles.footer}>
         <View style={styles.inputContainer}>
           <TextInput
-            placeholder="Task ekleyiniz..."
+            placeholder={I18n.translate('taskAdd')}
             onChangeText={setTextInput}
             placeholderTextColor={colors.cFFFFFF}
             value={textInput}

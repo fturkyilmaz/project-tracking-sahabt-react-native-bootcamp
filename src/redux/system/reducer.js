@@ -41,7 +41,6 @@ export function systemReducer(state = initialState, action) {
       return {...state, isDarkMode: action.payload};
 
     case SET_LANGUAGE:
-      console.log('SET_LANGUAGE', action);
       return {...state, language: action.payload};
 
     default:

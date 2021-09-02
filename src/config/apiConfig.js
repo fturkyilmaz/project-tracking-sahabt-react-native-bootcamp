@@ -1,11 +1,12 @@
 const prefixes = {
   login: 'auth/signin',
   projectList: 'project/list',
+  saveProject: 'userProject/add',
 };
 
 const apiConfig = {
   prefixes,
-  baseUrl: 'http://localhost:8080',
+  baseUrl: 'https://project-tracker-saha-bt.herokuapp.com',
 };
 
 export default apiConfig;

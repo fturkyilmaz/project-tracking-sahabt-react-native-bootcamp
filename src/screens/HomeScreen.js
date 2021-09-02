@@ -10,12 +10,17 @@ import Button from '../components/Button';
 import axios from '../utils/axios';
 import {hideLoader, toggleLoader} from '../redux/system/actions';
 import apiConfig from '../config/apiConfig';
+import {GetIsDarkMode} from '../redux/system/selectors';
+import I18n from '../i18n';
 
 export default function HomeScreen({navigation}) {
+  const isDarkMode = GetIsDarkMode();
+
   const [pageData, setPageData] = useState({
     description: '',
     projectId: null,
     time: '',
+    userId: 1,
   });
 
   const [project, setProject] = useState([]);
@@ -28,21 +33,32 @@ export default function HomeScreen({navigation}) {
 
   const onDonePress = () => {};
 
-  const saveProjectTimeline = () => {};
+  const saveProjectTimeline = () => {
+    try {
+      console.log('PAGE', pageData);
+      axios
+        .post(apiConfig.prefixes.saveProject, pageData)
+        .then(response => console.log(JSON.stringify(response.data, null, 4)));
+    } catch (error) {}
+  };
 
   const fetchProjectList = () => {
     try {
       dispatch(toggleLoader());
 
       axios.get(apiConfig.prefixes.projectList).then(response => {
-        const newData = response?.data
-          ? response.data.map(x => ({
-              label: x.name,
-              value: x.id,
-            }))
-          : [];
+        if (response.status === 200) {
+          const {data} = response.data;
 
-        setProject(newData);
+          const newData = data
+            ? data.map(x => ({
+                label: x.name,
+                value: x.id,
+              }))
+            : [];
+
+          setProject(newData);
+        }
       });
     } catch (error) {
     } finally {
@@ -54,12 +70,19 @@ export default function HomeScreen({navigation}) {
     fetchProjectList();
   }, []);
 
+  const dropdownContainerStyle = {
+    ...styles.dropdownContainer,
+    backgroundColor: isDarkMode
+      ? colors.dark.primary[6]
+      : colors.light.background,
+  };
+
   return (
     <CustomView
       style={{
         flex: 1,
       }}>
-      <Header title="Home" />
+      <Header title={I18n.t('home')} />
 
       <View
         style={{
@@ -67,15 +90,15 @@ export default function HomeScreen({navigation}) {
           marginVertical: 20,
           padding: 15,
         }}>
-        <View style={styles.inputContainer}>
+        <View style={dropdownContainerStyle}>
           <Dropdown
             items={project}
-            placeholder="Proje Seçiniz"
-            onValueChange={val => onChangeText('project', val)}
+            placeholder={I18n.t('projectChoose')}
+            onValueChange={val => onChangeText('projectId', val)}
             onDonePress={() => onDonePress()}
           />
         </View>
-        <View style={styles.inputContainer}>
+        <View style={dropdownContainerStyle}>
           <Dropdown
             items={[
               {label: '1 Saat', value: 60},
@@ -87,13 +110,13 @@ export default function HomeScreen({navigation}) {
               {label: '7 Saat', value: 420},
               {label: '8 Saat', value: 480},
             ]}
-            placeholder="Süre Seçiniz"
+            placeholder={I18n.t('timeChoose')}
             onValueChange={val => onChangeText('time', val)}
             onDonePress={() => onDonePress()}
           />
         </View>
         <Input
-          placeHolder="Proje açıklaması ekleyiniz"
+          placeHolder={I18n.t('projectDescription')}
           style={styles.inputContainer}
           onChangeText={val => onChangeText('description', val)}
           value={pageData.description}
@@ -103,7 +126,7 @@ export default function HomeScreen({navigation}) {
         <View style={styles.inputContainer}>
           <Button
             onPress={() => saveProjectTimeline()}
-            text={'Çalışmamı Kaydet'}
+            text={I18n.t('saveProjectTime')}
           />
         </View>
       </View>
@@ -114,5 +137,9 @@ export default function HomeScreen({navigation}) {
 const styles = StyleSheet.create({
   inputContainer: {
     marginVertical: 15,
+  },
+  dropdownContainer: {
+    backgroundColor: colors.cFFFFFF,
+    padding: 15,
   },
 });

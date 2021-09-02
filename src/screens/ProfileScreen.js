@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -22,9 +22,13 @@ import {colors, fonts} from '../constants';
 import I18n, {changeLanguage} from '../i18n';
 
 export default function ProfileScreen({navigation}) {
+  const [lang, setLang] = useState('tr');
+
   const isDarkMode = GetIsDarkMode();
 
   const language = useSelector(state => state.system.language);
+
+  console.log('Language', language);
 
   const userInfo = GetUserInfo();
 
@@ -45,6 +49,7 @@ export default function ProfileScreen({navigation}) {
   };
 
   const onDonePress = () => {
+    setLang(language);
     changeLanguage(language);
     navigation.navigate('Profile');
   };
@@ -65,7 +70,7 @@ export default function ProfileScreen({navigation}) {
 
   return (
     <CustomView style={styles.container}>
-      <Header title="Profile" />
+      <Header title={I18n.t('profile')} />
 
       <ScrollView
         contentContainerStyle={styles.scrollView}
@@ -94,28 +99,28 @@ export default function ProfileScreen({navigation}) {
           <View style={infoBoxStyle}>
             <View style={styles.infoContainer}>
               <View style={cellStyle}>
-                <CustomText style={styles.title} text="Ünvan" />
+                <CustomText style={styles.title} text={I18n.t('title')} />
                 <CustomText style={styles.info} text={userInfo.title} />
               </View>
 
               <View style={cellStyle}>
-                <CustomText style={styles.title} text="Şirket Adı" />
+                <CustomText style={styles.title} text={I18n.t('company')} />
                 <CustomText style={styles.info} text={userInfo.company} />
               </View>
 
               <View style={cellStyle}>
-                <CustomText style={styles.title} text="Telefon" />
+                <CustomText style={styles.title} text={I18n.t('mobile')} />
                 <CustomText style={styles.info} text={userInfo.mobile} />
               </View>
               <View style={cellStyle}>
-                <CustomText style={styles.title} text="Yönetici Bilgisi" />
+                <CustomText style={styles.title} text={I18n.t('manager')} />
                 <CustomText
                   style={styles.info}
                   text={userInfo.managerDisplayName}
                 />
               </View>
               <View style={cellStyle}>
-                <CustomText style={styles.title} text="Birim" />
+                <CustomText style={styles.title} text={I18n.t('unit')} />
                 <CustomText style={styles.info} text={userInfo.unitName} />
               </View>
             </View>
@@ -123,7 +128,7 @@ export default function ProfileScreen({navigation}) {
           <View style={infoBoxStyle}>
             <View style={styles.infoContainer}>
               <View style={cellStyle}>
-                <CustomText style={styles.title} text="Tema Seçimi" />
+                <CustomText style={styles.title} text={I18n.t('themeChoose')} />
 
                 <View style={styles.row}>
                   <CustomText style={styles.title} text="Dark Mode" />
@@ -134,7 +139,10 @@ export default function ProfileScreen({navigation}) {
                 </View>
               </View>
               <View style={cellStyle}>
-                <CustomText style={styles.title} text="Dil Seçimi" />
+                <CustomText
+                  style={styles.title}
+                  text={I18n.t('languageChoose')}
+                />
 
                 <View style={{marginVertical: 10}}>
                   <Dropdown

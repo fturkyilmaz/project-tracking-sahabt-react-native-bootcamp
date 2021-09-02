@@ -17,7 +17,7 @@ import Checkbox from '../components/Checkbox';
 import DeviceInfo from 'react-native-device-info';
 import CustomView from '../components/CustomView';
 import {useDispatch, useSelector} from 'react-redux';
-import I18n from '../i18n';
+import I18n, {changeLanguage} from '../i18n';
 import axios from '../utils/axios';
 import {hideLoader, setUser, toggleLoader} from '../redux/system/actions';
 import apiConfig from '../config/apiConfig';
@@ -27,6 +27,8 @@ export default function LoginScreen() {
   const passwordText = I18n.t('password');
   const rememberMeText = I18n.t('rememberMe');
   const loginText = I18n.t('login');
+
+  const language = useSelector(state => state.system.language);
 
   const dispatch = useDispatch();
 
@@ -52,6 +54,7 @@ export default function LoginScreen() {
       dispatch(toggleLoader());
 
       axios.post(apiConfig.prefixes.login, pageData).then(response => {
+        changeLanguage(language);
         dispatch(setUser(response.data.data));
       });
     } catch (error) {
@@ -101,7 +104,7 @@ export default function LoginScreen() {
           />
           <Text style={styles.rememberMeText}>{rememberMeText}</Text>
         </View>
-        <View style={{marginVertical: 15}}>
+        <View style={{marginVertical: 30, marginHorizontal: 15}}>
           <Button onPress={() => onLogin()} text={loginText} />
         </View>
       </View>

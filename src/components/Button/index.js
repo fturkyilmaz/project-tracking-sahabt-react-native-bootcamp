@@ -13,7 +13,7 @@ export default function Button({text, onPress}) {
 }
 
 const styles = StyleSheet.create({
-  container: {flexDirection: 'row', padding: 17, borderRadius: 5},
+  container: {flexDirection: 'row', borderRadius: 5},
   button: {
     width: '100%',
     backgroundColor: colors.cFFFFFF,
