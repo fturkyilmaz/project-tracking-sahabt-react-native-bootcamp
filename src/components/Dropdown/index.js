@@ -12,6 +12,8 @@ export default function Dropdown({
   style = {},
   onValueChange,
   placeholder = 'Seçiniz',
+  borderColor,
+  color,
   onDonePress = () => {},
 }) {
   const isDark = GetIsDarkMode();
@@ -25,21 +27,23 @@ export default function Dropdown({
         items={items}
         value={value}
         doneText={doneText}
-        placeholder={{label: placeholder}}
+        placeholder={{label: placeholder, value: null}}
         style={{
           inputIOS: {
             fontSize: fonts.f13,
             fontWeight: 'bold',
-            color: isDark ? colors.cFFFFFF : colors.c324c94,
+            color: color ? color : isDark ? colors.cFFFFFF : colors.c324c94,
+            borderColor,
           },
           inputAndroid: {
             fontSize: fonts.f13,
             fontWeight: 'bold',
-            color: isDark ? colors.cFFFFFF : colors.c324c94,
-            top: 0,
+            color: color ? color : isDark ? colors.cFFFFFF : colors.c324c94,
+            borderColor,
           },
         }}
         onDonePress={() => onDonePress()}
+        useNativeAndroidPickerStyle={false}
         Icon={() => {
           return (
             <Icon
@@ -57,7 +61,7 @@ export default function Dropdown({
 
 const styles = StyleSheet.create({
   dropdown: {
-    height: Platform.OS === 'ios' ? 42 : 38,
+    height: Platform.OS === 'ios' ? 42 : 42,
     borderWidth: 1,
     borderColor: 'gray',
     borderRadius: 10,

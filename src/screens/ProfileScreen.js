@@ -45,6 +45,10 @@ export default function ProfileScreen({navigation}) {
   const handleLanguageChange = lang => {
     if (lang) {
       dispatch(setLanguage(lang));
+
+      if (Platform.OS === 'android') {
+        onDonePress();
+      }
     }
   };
 
@@ -151,7 +155,7 @@ export default function ProfileScreen({navigation}) {
                       {label: 'English', value: 'en'},
                     ]}
                     value={language}
-                    placeholder="Dil Seçiniz"
+                    placeholder={'Dil Seçiniz'}
                     onValueChange={val => handleLanguageChange(val)}
                     onDonePress={() => onDonePress()}
                   />
